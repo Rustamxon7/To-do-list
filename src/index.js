@@ -6,7 +6,7 @@ const list = document.getElementById('list');
 
 const doList = [
   {
-    id: 0,
+    id: 10,
     description: 'Go to the mall',
     completed: false,
   },
@@ -22,7 +22,9 @@ const doList = [
   },
 ];
 
-function addToDo(toDoList) {
+doList.sort((a, b) => a.id - b.id);
+
+const addToDo = (toDoList) => {
   for (let id = 0; id < toDoList.length; id += 1) {
     const item = `
    <li>
@@ -32,6 +34,6 @@ function addToDo(toDoList) {
         </li>`;
     list.innerHTML += item;
   }
-}
+};
 
 addToDo(doList);
