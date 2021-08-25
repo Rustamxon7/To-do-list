@@ -6,7 +6,7 @@ const list = document.getElementById('list');
 
 const doList = [
   {
-    id: 10,
+    id: 0,
     description: 'Go to the mall',
     completed: false,
   },
