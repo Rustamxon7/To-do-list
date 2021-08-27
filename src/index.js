@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import _, { add } from 'lodash';
 import './style.css';
-import saveChanges from './updateStatus';
+import saveChanges from './saveToLocal';
 import arr from './arr';
 
 const list = document.getElementById('list');
