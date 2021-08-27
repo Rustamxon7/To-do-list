@@ -1,5 +1,3 @@
-// import './style.css';
-
 const arr = [
   {
     id: 0,
