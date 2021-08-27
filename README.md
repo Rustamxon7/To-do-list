@@ -23,6 +23,7 @@ To get a local copy up and running follow these simple example steps.
 - JavaScript
 - Git
 - GitHub
+- Node Js
 
 ## Live Demo
 
@@ -36,7 +37,11 @@ git clone your repo
 
 cd into the folder
 
-open index.html with live server
+Install dependencies `$ npm install`
+
+If you want to build the project `$ npm run build` - this will build the project in /dist folder
+
+Start the Project `$ npm start` - serve the project in browser
 
 ## Author
 
