@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,300;0,500;0,700;1,200;1,300;1,400&display=swap" rel="stylesheet" />
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://kit.fontawesome.com/f654a6a150.js" crossorigin="anonymous"></script>
+  <script defer src="index.bundle.js"></script></head>
+  <body>
+    <div class="continer" id="addnew">
+      <div class="title">
+        <p class="itm-1">Today's to do</p>
+        <ion-icon class="itm-2" name="refresh-outline"></ion-icon>
+      </div>
+      <form class="add"><input type="text" class="itm-1 input" id="input" placeholder="Add to your to do..." /><ion-icon class="itm-2" id="add" name="return-down-back-outline"></ion-icon></form>
+
+      <ul class="list" id="list" data-lists></ul>
+      <button type="button" class="todo-btn">Clear all completed</button>
+    </div>
+  </body>
+</html>
