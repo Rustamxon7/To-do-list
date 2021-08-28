@@ -1,51 +1,61 @@
-/* eslint-disable no-unused-vars */
-import _, { add } from 'lodash';
+/* eslint-disable import/extensions */
+
 import './style.css';
-import saveChanges from './saveToLocal';
-import arr from './arr';
+// import Sortable from 'sortablejs';
+import showList from './showList.js';
+import updateStatus from './updateStatus.js';
+import updateStorage from './updateStorage.js';
+import getStorage from './getStorage.js';
+import addTask from './addTask.js';
+import removeTask from './removeTask.js';
+import removeCompletedTasks from './removeCompletedTasks.js';
+import editTask from './editTask.js';
+import updateAfterDrag from './updateAfterDrag.js';
 
-const list = document.getElementById('list');
+let tasks = getStorage();
 
-let doList = arr;
+showList(tasks);
 
-doList = localStorage.getItem('doList') !== null ? JSON.parse(localStorage.getItem('doList')) : doList;
-
-for (let i = 0; i < doList.length; i += 1) {
-  const item = `
-   <li id="${doList[i].id}">
-   <i id="check" class="fas fa-square"></i>
-           <p class="el-2">${doList[i].description}</p>
-          <ion-icon id="${doList[i].completed}" class="el-3" name="ellipsis-vertical-outline"></ion-icon>
-        </li>`;
-  list.innerHTML += item;
-
-  if (doList[i].completed) {
-    const unchecked = document.querySelectorAll('.fas');
-    const text = document.querySelectorAll('.el-2');
-    doList[i].completed = true;
-    text[i].classList.add('line');
-    unchecked[i].classList.add('fa-check-square');
-    unchecked[i].classList.remove('fa-square');
-  }
-}
-const check = document.querySelectorAll('.fas');
-const text = document.querySelectorAll('.el-2');
-const unchecked = document.querySelectorAll('.fas');
-for (let i = 0; i < doList.length; i += 1) {
-  // eslint-disable-next-line no-loop-func
-  check[i].addEventListener('click', () => {
-    if (!doList[i].completed) {
-      doList[i].completed = true;
-      saveChanges(doList);
-      unchecked[i].classList.remove('fa-square');
-      unchecked[i].classList.add('fa-check-square');
-      text[i].classList.add('line');
-    } else {
-      doList[i].completed = false;
-      saveChanges(doList);
-      unchecked[i].classList.add('fa-square');
-      unchecked[i].classList.remove('fa-check-square');
-      text[i].classList.remove('line');
+const listDiv = document.getElementById('list');
+const clearAllButton = document.getElementById('clear-list');
+listDiv.addEventListener('click', (event) => {
+  if (event.target !== event.currentTarget) {
+    if (event.target.className === 'check') {
+      tasks = getStorage();
+      updateStatus(tasks, parseInt(event.target.parentElement.parentElement.id, 10), true);
+      showList(tasks);
+      updateStorage(tasks);
     }
-  });
-}
+    if (event.target.className === 'fas fa-check') {
+      tasks = getStorage();
+      updateStatus(tasks, parseInt(event.target.parentElement.parentElement.id, 10), false);
+      showList(tasks);
+      updateStorage(tasks);
+    }
+    if (event.target.className === 'fas fa-trash') {
+      tasks = getStorage();
+      tasks = removeTask(tasks, parseInt(event.target.parentElement.id, 10));
+    }
+    if (event.target.classList.contains('description')) {
+      tasks = getStorage();
+      editTask(tasks, event.target);
+    }
+  }
+  event.stopPropagation();
+});
+
+clearAllButton.addEventListener('click', () => {
+  tasks = removeCompletedTasks(tasks);
+});
+
+const addTaskButton = document.getElementById('add');
+addTaskButton.addEventListener('click', () => {
+  addTask(tasks);
+  updateStorage(tasks);
+  showList(tasks);
+});
+
+listDiv.addEventListener('dragend', (event) => {
+  updateAfterDrag(listDiv);
+  event.stopPropagation();
+});
