@@ -1,51 +1,89 @@
-/* eslint-disable no-unused-vars */
-import _, { add } from 'lodash';
 import './style.css';
-import saveChanges from './saveToLocal';
-import arr from './arr';
 
-const list = document.getElementById('list');
+import addTask from './add';
 
-let doList = arr;
+import completed from './complete';
+import removeTask from './remove';
+import editTask from './edit';
 
-doList = localStorage.getItem('doList') !== null ? JSON.parse(localStorage.getItem('doList')) : doList;
+const listContainer = document.querySelector('.lists');
+const add = document.getElementById('add-btn');
+const input = document.getElementById('new-task');
+const clear = document.getElementById('clear-btn');
+let inputtedTask;
 
-for (let i = 0; i < doList.length; i += 1) {
-  const item = `
-   <li id="${doList[i].id}">
-   <i id="check" class="fas fa-square"></i>
-           <p class="el-2">${doList[i].description}</p>
-          <ion-icon id="${doList[i].completed}" class="el-3" name="ellipsis-vertical-outline"></ion-icon>
-        </li>`;
-  list.innerHTML += item;
+const tasks = localStorage.getItem('tasks') !== null ? JSON.parse(localStorage.getItem('tasks')) : [];
 
-  if (doList[i].completed) {
-    const unchecked = document.querySelectorAll('.fas');
-    const text = document.querySelectorAll('.el-2');
-    doList[i].completed = true;
-    text[i].classList.add('line');
-    unchecked[i].classList.add('fa-check-square');
-    unchecked[i].classList.remove('fa-square');
-  }
-}
-const check = document.querySelectorAll('.fas');
-const text = document.querySelectorAll('.el-2');
-const unchecked = document.querySelectorAll('.fas');
-for (let i = 0; i < doList.length; i += 1) {
-  // eslint-disable-next-line no-loop-func
-  check[i].addEventListener('click', () => {
-    if (!doList[i].completed) {
-      doList[i].completed = true;
-      saveChanges(doList);
-      unchecked[i].classList.remove('fa-square');
-      unchecked[i].classList.add('fa-check-square');
-      text[i].classList.add('line');
+const iterate = () => {
+  tasks.sort((a, b) => b.index - a.index);
+  tasks.forEach((item) => {
+    const li = document.createElement('li');
+    li.className = 'taskList';
+    const div = document.createElement('div');
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = 'completed';
+    checkbox.name = 'completed';
+    checkbox.className = 'checkbox';
+    const description = document.createElement('p');
+    description.className = 'name';
+    description.innerText = `${item.description}`;
+    const deleteIcon = document.createElement('button');
+    deleteIcon.className = 'trash';
+    deleteIcon.type = 'button';
+    deleteIcon.innerHTML = '<i class="far fa-trash-alt"></i>';
+    if (item.completed === true) {
+      checkbox.checked = true;
+      description.style.textDecoration = 'line-through solid';
     } else {
-      doList[i].completed = false;
-      saveChanges(doList);
-      unchecked[i].classList.add('fa-square');
-      unchecked[i].classList.remove('fa-check-square');
-      text[i].classList.remove('line');
+      checkbox.checked = false;
     }
+    checkbox.addEventListener('change', (event) => {
+      completed(item.index, item, event, description);
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    });
+    description.addEventListener('click', () => {
+      description.setAttribute('contenteditable', 'true');
+      description.addEventListener('input', () => {
+        item.description = description.innerText;
+        editTask(item, tasks);
+      });
+    });
+    li.addEventListener('mouseover', () => {
+      deleteIcon.style.display = 'block';
+    });
+    li.addEventListener('mouseleave', () => {
+      deleteIcon.style.display = 'none';
+    });
+    deleteIcon.addEventListener('click', () => {
+      removeTask(item.index, tasks);
+    });
+    div.appendChild(checkbox);
+    div.appendChild(description);
+    li.appendChild(div);
+    li.appendChild(deleteIcon);
+    listContainer.appendChild(li);
   });
-}
+};
+
+window.addEventListener('load', iterate);
+input.addEventListener('input', (e) => {
+  inputtedTask = e.target.value;
+});
+
+add.addEventListener('click', () => {
+  if (inputtedTask !== undefined) {
+    const newTask = addTask(tasks, inputtedTask);
+    tasks.push(newTask);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    window.location.reload();
+  } else {
+    // eslint-disable-next-line no-alert
+    alert('Input a task description');
+  }
+});
+
+clear.addEventListener('click', () => {
+  // eslint-disable-next-line no-undef
+  clearCompleted(tasks);
+});
