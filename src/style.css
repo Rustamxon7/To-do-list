@@ -69,10 +69,25 @@ html {
   border-bottom: #e6e4e4 solid 0.1rem;
 }
 
-.el-1 {
-  padding-left: 1rem;
-  padding-right: 1rem;
+.fas {
+  margin-left: 1rem;
+  margin-right: 1rem;
   color: #cecdcd;
+}
+
+.checkbox::after {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(36, 27, 27);
+  color: #7c7a7a;
+}
+
+.line {
+  text-decoration: line-through;
+}
+
+.hidden {
+  display: none;
 }
 
 .el-3 {

@@ -2,7 +2,7 @@
 
 # Microverse-ToDo-List
 
-![Screen Shot 2021-08-25 at 4 26 08 PM](https://user-images.githubusercontent.com/69011963/130782572-73a1669c-8832-4c65-a723-b418026f6600.png)
+![ToDoList](https://user-images.githubusercontent.com/69011963/131016666-a9bc8140-dff8-4e2d-a21d-7aee217277f7.gif)
 
 Additional description about the project and its features.
 
