@@ -106,7 +106,7 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, style) {\
   \********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst addTask = (tasks, description) => {\n  const rand = Math.max(...tasks.map((item) => item.index), 1);\n  const id = rand + 1;\n  const newTask = { description, completed: false, index: id };\n  return newTask;\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addTask);\n\n\n//# sourceURL=webpack://webpack-demo/./src/add.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst addTask = (tasks, description) => {\n  const rand = Math.max(...tasks.map((item) => item.index), 0);\n  const id = rand + 1;\n  const newTask = { description, completed: false, index: id };\n  return newTask;\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addTask);\n\n\n//# sourceURL=webpack://webpack-demo/./src/add.js?");
 
 /***/ }),
 
