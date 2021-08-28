@@ -2,7 +2,7 @@ import './style.css';
 
 import addTask from './add';
 
-import completed from './complete';
+import { completed, clearCompleted } from './complete';
 import removeTask from './remove';
 import editTask from './edit';
 
