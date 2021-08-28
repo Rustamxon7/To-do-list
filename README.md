@@ -2,7 +2,7 @@
 
 # Microverse-ToDo-List
 
-![ToDoList](https://user-images.githubusercontent.com/69011963/131016666-a9bc8140-dff8-4e2d-a21d-7aee217277f7.gif)
+![ToDoListComplete](https://user-images.githubusercontent.com/69011963/131209759-a2cc5bf5-a83e-4c01-8c20-d3bb4327b6dc.gif)
 
 Additional description about the project and its features.
 
