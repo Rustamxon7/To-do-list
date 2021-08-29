@@ -1,7 +1,7 @@
-const updateStatus = (list, id, completed) => {
-  list.forEach((task) => {
-    if (task.index === id) task.completed = completed;
-  });
-};
+// const updateStatus = (list, id, completed) => {
+//   list.forEach((task) => {
+//     if (task.index === id) task.completed = completed;
+//   });
+// };
 
-export { updateStatus as default };
+// export { updateStatus as default };
